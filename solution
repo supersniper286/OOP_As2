@@ -1,0 +1,82 @@
+#include<iostream>
+#include<string>
+using namespace std;
+class Course
+{
+    private:
+  string coursename;
+  string* students;
+  int numberofstudents;
+  int capacity;
+  public:
+  Course(const string& coursename, int capacity);
+  ~Course();
+  string getcoursename() const;
+  string* getstudents()const;
+  void addstudent(const string& name);
+  bool dropstudent(const string& name);
+  int getnumberofstudents()const;
+};
+Course::Course(const string& coursename,int capacity)
+{
+    numberofstudents=0;
+    this->coursename=coursename;
+    this->capacity=capacity;
+    students=new string[capacity];
+}
+Course::~Course()
+{
+    delete[] students;
+}
+string Course::getcoursename()const
+{
+    return coursename;
+}
+void Course::addstudent(const string& name)
+{
+    students[numberofstudents]=name;
+    numberofstudents++;
+}
+bool Course::dropstudent(const string& name)
+{
+    int* newarray[numberofstudents];
+for (int i = 0; i < numberofstudents; i++)
+    {
+        if (students[i] == name)
+        {
+            int *students = new int[numberofstudents-1];
+            copy(students, students+i, newArray);
+            copy(students+i+1, students+numberofstudents, newArray+i);
+            delete[] students;
+            students = newArray;
+            --numberofstudents;
+            return true; 
+        }
+    }       
+    return false;
+}
+string* Course::getnumberofstudents()const{ return students;}
+int Course::getstudents()const
+{
+    return students;
+}
+int main()
+{
+    Course course1("Database Systems", 10);
+    Course course2("Data Structures",15);
+    course1.addstudent("Ali");
+    course1.addstudent("Ahmed");
+    course1.addstudent("Imran");
+    course2.addstudent("Rizwan");
+    course2.addstudent("Akeel");
+    cout<<"number of students in course1: "<<course1.getnumberofstudents()<<endl;
+    string* students=course1.getstudents();
+    for (int i=0;i<course1.getnumberofstudents();i++)
+    {cout<<students[i]<<",";}
+    
+    cout<<"\n number of students in course2: "<<course2.getnumberofstudents()<<endl;
+    student=course2.getstudents();
+    for (int i=0;i<course2.getnumberofstudents();i++)
+    {cout<<students[i]<<",";}
+    return 0;
+}
